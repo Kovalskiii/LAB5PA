@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Vehicles"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/controlsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/recycler_view_item" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/controlsLayout"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/update"
+            android:layout_width="99dp"
+            android:layout_height="95dp"
+            android:onClick="OnReload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_update_foreground" />
+
+        <ImageButton
+            android:id="@+id/wheel_sort"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="OnSortButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/update"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/engine_sort"
+            app:srcCompat="@mipmap/ic_wheel_foreground" />
+
+        <ImageButton
+            android:id="@+id/fuel_tank_sort"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:onClick="OnSortButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/update"
+            app:layout_constraintTop_toBottomOf="@+id/fuel_level_sort"
+            app:srcCompat="@mipmap/ic_fuel_tank_foreground" />
+
+        <ImageButton
+            android:id="@+id/fuel_level_sort"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="OnSortButton"
+            android:src="@mipmap/ic_fuel_level_foreground"
+            app:layout_constraintBottom_toTopOf="@+id/fuel_tank_sort"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/update"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/engine_sort"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="OnSortButton"
+            app:layout_constraintBottom_toTopOf="@+id/wheel_sort"
+            app:layout_constraintEnd_toStartOf="@+id/update"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_engine_foreground" />
+
+        <Button
+            android:id="@+id/ADD_BTN_MAIN"
+            android:layout_width="85dp"
+            android:layout_height="89dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="OnAdd"
+            android:text="Add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/fuel_tank_sort"
+            app:layout_constraintStart_toEndOf="@+id/wheel_sort" />
+        tools:layout_editor_absoluteX="99dp" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
+
+<!--<EditText-->
+<!--android:id="@+id/editText"-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="51dp"-->
+<!--android:layout_weight="1"-->
+<!--android:ems="10"-->
+<!--android:inputType="textPersonName"-->
+<!--android:text="Edit Text"-->
+<!--app:layout_constraintTop_toBottomOf="@+id/controlsLayout"-->

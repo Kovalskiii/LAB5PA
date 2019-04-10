@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recycler_view_item_layour"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/wheel_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        app:layout_constraintEnd_toEndOf="@+id/wheel_number_iv"
+        app:layout_constraintStart_toStartOf="@+id/wheel_number_iv"
+        app:layout_constraintTop_toBottomOf="@+id/wheel_number_iv" />
+
+    <ImageView
+        android:id="@+id/wheel_number_iv"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintStart_toEndOf="@+id/fuel_tank_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_wheel" />
+
+    <ImageView
+        android:id="@+id/fuel_tank_iv"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintStart_toEndOf="@+id/fuel_level_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_fuel_tank_foreground" />
+
+    <TextView
+        android:id="@+id/fuel_tank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        app:layout_constraintEnd_toEndOf="@+id/fuel_tank_iv"
+        app:layout_constraintStart_toStartOf="@+id/fuel_tank_iv"
+        app:layout_constraintTop_toBottomOf="@+id/fuel_tank_iv" />
+
+    <TextView
+        android:id="@+id/fuel_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        app:layout_constraintEnd_toEndOf="@+id/fuel_level_iv"
+        app:layout_constraintStart_toStartOf="@+id/fuel_level_iv"
+        app:layout_constraintTop_toBottomOf="@+id/fuel_level_iv" />
+
+    <ImageView
+        android:id="@+id/fuel_level_iv"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintStart_toEndOf="@+id/engine_capacity_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_fuel_level_foreground" />
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/avatars"
+        tools:srcCompat="@mipmap/ic_launcher_car1" />
+
+
+    <!--<TextView-->
+    <!--android:id="@+id/textView3"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--tools:text="@tools:sample/date/hhmm"-->
+    <!--app:layout_constraintTop_toTopOf="@+id/imageView2"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--android:layout_marginEnd="8dp" />-->
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="57dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="X"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/engine_capacity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.0"
+        app:layout_constraintEnd_toEndOf="@+id/engine_capacity_iv"
+        app:layout_constraintStart_toStartOf="@+id/engine_capacity_iv"
+        app:layout_constraintTop_toBottomOf="@+id/engine_capacity_iv" />
+
+    <ImageView
+        android:id="@+id/engine_capacity_iv"
+        android:layout_width="53dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="false"
+        app:layout_constraintStart_toEndOf="@+id/picture"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_engine22" />
+
+
+</android.support.constraint.ConstraintLayout>
