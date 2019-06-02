@@ -50,7 +50,7 @@
             android:id="@+id/update"
             android:layout_width="99dp"
             android:layout_height="95dp"
-            android:onClick="OnReload"
+            android:onClick="btnReload"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

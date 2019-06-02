@@ -1,53 +1,56 @@
 package com.example.lab5_pa;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.lab5_pa.AUTO.CustomVehicle;
-import com.example.lab5_pa.MVP.MainContract;
-import com.example.lab5_pa.MVP.MainPresenter;
+import com.example.lab5_pa.AUTO.IVehicle;
+import com.example.lab5_pa.MVP.VehicleContract;
+import com.example.lab5_pa.MVP.VehicleRepository;
 
-
-
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements MainContract.MainView {
+public class MainActivity extends AppCompatActivity implements VehicleContract.VehiclePresenter {
 
 
-    MainContract.MainPresenter presenter;
 
+
+
+
+    //private VehicleContract.VehicleView view;
+
+    //private RecyclerView.LayoutManager layoutManager;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-
+    private Map<VehicleContract.SortBy, Boolean> sortStatus = new HashMap<VehicleContract.SortBy, Boolean>();
+    private VehicleContract.VehicleRepository vehicleRepository;
+    private VehicleContract.VehicleView vehicleView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Realm.init(this);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
 
-        presenter = new MainPresenter(this);
-
-        mAdapter = new VehicleAdapter(presenter);
+        VehicleAdapter vehicleAdapter = new VehicleAdapter(this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
+        recyclerView.setAdapter(vehicleAdapter);
 
-        mAdapter.notifyDataSetChanged();
-
+        vehicleView = vehicleAdapter;
+        vehicleRepository = new VehicleRepository(this);
+        vehicleRepository.Load(loaded -> vehicleView.ShowVehicles(loaded));
 
     }
 
@@ -89,46 +92,83 @@ public class MainActivity extends AppCompatActivity implements MainContract.Main
         }
 
 //        CustomVehicle custom_vehicle = new CustomVehicle(fuel_tank, fuel_level, wheel_number, photoId, engine_capacity);
+          OnAdd(fuel_tank, fuel_level, wheel_number, photoId, engine_capacity);
 
-        presenter.OnAdd(fuel_tank, fuel_level, wheel_number, photoId, engine_capacity);
-        mAdapter.notifyItemInserted(0);
 //        presenter.getList().add(0, custom_vehicle);
 
 
     }
 
     public void OnSortButton(View view) {
+        VehicleContract.SortBy sortBy = VehicleContract.SortBy.NOTHING;
         switch (view.getId()) {
             case R.id.engine_sort:
-                presenter.OnSortClicked(MainContract.SortBy.ENGINE_CAPACITY);
+                sortBy = VehicleContract.SortBy.ENGINE_CAPACITY;
                 break;
             case R.id.fuel_level_sort:
-                presenter.OnSortClicked(MainContract.SortBy.FUEL_LEVEL);
+                sortBy = VehicleContract.SortBy.FUEL_LEVEL;
                 break;
             case R.id.fuel_tank_sort:
-                presenter.OnSortClicked(MainContract.SortBy.FUEL_TANK);
+                sortBy = VehicleContract.SortBy.FUEL_TANK;
                 break;
             case R.id.wheel_sort:
-                presenter.OnSortClicked(MainContract.SortBy.WHEEL_NUMBER);
+                sortBy = VehicleContract.SortBy.WHEEL_NUMBER;
                 break;
         }
-
-        mAdapter.notifyDataSetChanged();
+        OnSort(sortBy);
     }
 
-    @Override
-    public void showVehicles(List<CustomVehicle> vehicles) {
-        mAdapter.notifyDataSetChanged();
-    }
 
-    @Override
     public void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    public void OnReload(View view) {
-        presenter.OnReload();
-        mAdapter.notifyDataSetChanged();
+
+    @Override
+    public void OnSort(VehicleContract.SortBy sortBy) {
+
+        Boolean clicked = sortStatus.get(sortBy);
+        boolean reversed = false;
+        if (clicked == null || clicked == false)
+        {
+            sortStatus.put(sortBy, true);
+            reversed = false;
+
+        } else {
+            sortStatus.put(sortBy, false);
+            reversed = true;
+
+        }
+        toast(String.format("Sorted by %s %s", sortBy, reversed?"reversed":""));
+        vehicleRepository.Sort(sortBy, reversed, sorted -> {
+            vehicleView.ShowVehicles(sorted);
+        });
+    }
+
+    @Override
+    public void OnRemove(IVehicle vehicle) {
+        vehicleRepository.Remove(vehicle, removedV -> {
+            vehicleView.Remove(removedV);
+        });
+    }
+
+    @Override
+    public void OnAdd(int fuel_tank, int fuel_level, int wheel_number, int photo_res_id, float engine_capacity) {
+        vehicleRepository.Add("addedVehicle", fuel_tank, fuel_level, wheel_number, photo_res_id, engine_capacity, added -> {
+            vehicleView.Add(added);
+        });
+    }
+
+    public void btnReload(View view)
+    {
+        OnReload();
+    }
+
+    @Override
+    public void OnReload() {
+        vehicleRepository.Reload(vehicles -> {
+            vehicleView.ShowVehicles(vehicles);
+        });
     }
 }
 
